@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matlyftet – Din smarta matplanerare</title>
+<meta name="description" content="Planera veckans mat, hitta recept från ingredienser du har hemma och skapa inköpslista.">
+<style>
+:root{--g:#16784f;--g2:#e6f6ed;--ink:#183128;--muted:#68776f;--bg:#fffaf2;--white:#fff;--line:#dce9e1;--orange:#f5a04a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg)}
+button,input{font:inherit}.nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 5%}.logo{font-weight:950;font-size:23px;color:var(--g)}.logo span{color:var(--ink)}.links{display:flex;gap:20px}.links button{background:none;border:0;color:#51635a;font-weight:800;cursor:pointer}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:900;cursor:pointer}.green{background:var(--g);color:#fff}.light{background:#fff;border:1px solid var(--line)}
+.hero{max-width:1150px;margin:auto;padding:70px 5%;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}.eyebrow{display:inline-block;background:var(--g2);color:var(--g);padding:8px 12px;border-radius:99px;font-size:13px;font-weight:900}.hero h1{font-size:clamp(42px,6vw,70px);line-height:.98;letter-spacing:-3px;margin:18px 0}.hero h1 em{font-style:normal;color:var(--g)}.hero p{font-size:18px;line-height:1.65;color:var(--muted)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.preview{background:#fff;border:1px solid var(--line);border-radius:25px;padding:22px;box-shadow:0 20px 60px #1b68401c}.preview h3{margin-top:0}.meal{background:#f5faf7;border:1px solid #e5eee8;padding:14px;border-radius:14px;margin:9px 0}.meal small{color:var(--muted)}
+.app{padding:65px 5%;background:#f5faf7}.wrap{max-width:1100px;margin:auto}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.tab{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 15px;font-weight:900;cursor:pointer}.tab.active{background:var(--g);color:#fff;border-color:var(--g)}.panel{display:none}.panel.active{display:block}.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:25px}.head h2{font-size:38px;letter-spacing:-1.5px;margin:8px 0}.muted{color:var(--muted);line-height:1.6}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.day{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;min-height:155px}.day small{font-weight:900;color:var(--g)}.day b{display:block;margin:13px 0 7px}.day span{font-size:13px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card,.shop{background:#fff;border:1px solid var(--line);border-radius:18px;padding:19px}.card h3{margin:7px 0}.card p{font-size:14px;color:var(--muted)}.shop{max-width:800px}.shoprow{display:flex;align-items:center;gap:12px;border-bottom:1px solid #edf2ef;padding:13px 0}.shoprow:last-child{border-bottom:0}.shoprow input{width:19px;height:19px}.done label{text-decoration:line-through;color:#8a9690}.form{display:flex;gap:10px;max-width:800px}.form input{flex:1;border:1px solid #cadbd2;border-radius:12px;padding:14px;background:#fff}.results{margin-top:18px;display:grid;gap:10px}.match{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px}.about{padding:70px 5%;background:#fff}.aboutgrid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.cta{text-align:center;padding:75px 5%}.cta h2{font-size:40px}.footer{text-align:center;padding:25px;background:#fff;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media(max-width:850px){.hero,.aboutgrid{grid-template-columns:1fr}.days{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr 1fr}.links{display:none}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.form{flex-direction:column}.head{align-items:start;flex-direction:column}}
+</style>
+</head>
+<body>
+<nav class="nav">
+<a class="logo" href="#veckoplan" onclick="showTab('veckoplan');return false">Mat<span>lyftet</span>.com</a>
+<div class="links">
+<button onclick="showTab('veckoplan')">📅 Veckoplan</button>
+<button onclick="showTab('inkop')">🛒 Inköpslista</button>
+<button onclick="showTab('recept')">🍲 Recept</button>
+<button onclick="showTab('hemma')">🥕 Hemma</button>
+</div>
+<button class="btn green" onclick="document.getElementById('app').scrollIntoView()">Kom igång</button>
+</nav>
+
+<section class="hero">
+<div><span class="eyebrow">🌱 Matlyftet</span><h1>Hälsosam mat.<br><em>Mindre planering.</em></h1>
+<p>Planera hela veckan, använd ingredienserna du redan har hemma och få en färdig inköpslista. Allt samlat på ett ställe.</p>
+<div class="actions"><button class="btn green" onclick="document.getElementById('app').scrollIntoView()">Öppna Matlyftet →</button><button class="btn light" onclick="showTab('hemma')">Vad har jag hemma?</button></div></div>
+<div class="preview"><h3>📅 Exempel på din vecka</h3><div class="meal"><b>🍗 Kycklingbowl</b><small>520 kcal · 48 g protein · 25 min</small></div><div class="meal"><b>🐟 Lax med potatis</b><small>560 kcal · 38 g protein · 35 min</small></div><div class="meal"><b>🍲 Linssoppa</b><small>360 kcal · 20 g protein · 30 min</small></div><div class="meal"><b>🛒 17 varor</b><small>Din inköpslista är klar</small></div></div>
+</section>
+
+<section class="app" id="app"><div class="wrap">
+<div class="tabs">
+<button class="tab" data-tab="veckoplan" onclick="showTab('veckoplan')">📅 Veckoplan</button>
+<button class="tab" data-tab="inkop" onclick="showTab('inkop')">🛒 Inköpslista</button>
+<button class="tab" data-tab="recept" onclick="showTab('recept')">🍲 Recept</button>
+<button class="tab" data-tab="hemma" onclick="showTab('hemma')">🥕 Vad finns hemma?</button>
+</div>
+
+<div id="veckoplan" class="panel active">
+<div class="head"><div><span class="eyebrow">Din vecka</span><h2>Veckans middagar</h2><p class="muted">Tryck på knappen för att skapa en ny vecka. Din plan sparas automatiskt.</p></div><button class="btn green" onclick="newPlan()">✨ Skapa veckoplan</button></div>
+<div class="days" id="days"></div>
+</div>
+
+<div id="inkop" class="panel">
+<div class="head"><div><span class="eyebrow">Smart lista</span><h2>Inköpslista</h2><p class="muted">Listan byggs automatiskt från din veckoplan.</p></div><button class="btn light" onclick="uncheckAll()">Återställ</button></div>
+<div class="shop"><div id="shopping"></div><p id="total" class="muted"></p></div>
+</div>
+
+<div id="recept" class="panel">
+<div class="head"><div><span class="eyebrow">Recept</span><h2>Våra vardagsfavoriter</h2><p class="muted">Tydliga recept med mängder, tid och näringsvärden.</p></div></div>
+<div class="grid" id="recipes"></div>
+</div>
+
+<div id="hemma" class="panel">
+<div class="head"><div><span class="eyebrow">Använd maten du har</span><h2>Vad finns hemma?</h2><p class="muted">Skriv flera ingredienser, separerade med komma.</p></div></div>
+<div class="form"><input id="pantry" placeholder="t.ex. kyckling, ris, broccoli"><button class="btn green" onclick="findRecipes()">Hitta recept</button></div>
+<div class="results" id="results"></div>
+</div>
+</div></section>
+
+<section class="about"><div class="wrap aboutgrid"><div><span class="eyebrow">Varför Matlyftet?</span><h2>Vi vill göra bra mat enklare.</h2><p class="muted">Det är lätt att veta att man vill äta bättre. Det svåra är att planera, handla och komma på vad man faktiskt ska laga när vardagen är stressig.</p></div><div><p class="muted">Matlyftet samlar därför veckoplanering, recept, ingrediensmatchning och inköpslista i ett enkelt verktyg. Målet är att minska friktionen runt maten – inte att kräva en perfekt kost.</p><p class="muted">Näringsvärdena i prototypen är uppskattningar och bör kontrolleras mot aktuella råvaror och förpackningar innan tjänsten lanseras kommersiellt.</p></div></div></section>
+<section class="cta"><h2>Din nästa vecka kan börja här.</h2><p class="muted">Planera. Handla. Laga. Ät.</p><button class="btn green" onclick="document.getElementById('app').scrollIntoView()">Starta Matlyftet →</button></section>
+<footer class="footer">Matlyftet.com · Hälsosammare mat, enklare vardag.</footer>
+
+<script>
+const DATA=[
+{name:"Kyckling med ris & broccoli",e:"🍗🥦",k:520,p:48,t:25,keys:["kyckling","ris","broccoli"],shop:["300 g kycklingfilé","150 g ris","200 g broccoli","10 g olivolja","1 vitlöksklyfta"]},
+{name:"Lax med potatis & bönor",e:"🐟🥔",k:560,p:38,t:35,keys:["lax","potatis","bönor","gröna bönor"],shop:["300 g laxfilé","400 g potatis","200 g gröna bönor","1 citron","10 g olivolja"]},
+{name:"Krämig tomatpasta",e:"🍝",k:470,p:20,t:25,keys:["pasta","tomat","zucchini","lök"],shop:["160 g fullkornspasta","250 g krossade tomater","100 g zucchini","50 g gul lök","20 g parmesan"]},
+{name:"Tacobowl med nötfärs",e:"🌮🥑",k:540,p:39,t:25,keys:["nötfärs","ris","majs","avokado","tomat"],shop:["250 g nötfärs","120 g ris","100 g majs","1 avokado","2 tomater","tacokrydda"]},
+{name:"Linssoppa med tomat",e:"🍲🌱",k:360,p:20,t:30,keys:["linser","tomat","morot","lök"],shop:["200 g röda linser","400 g krossade tomater","2 morötter","1 gul lök","700 ml grönsaksbuljong"]},
+{name:"Kycklingwok med grönsaker",e:"🥢🍗",k:490,p:46,t:25,keys:["kyckling","wok","grönsaker","ris"],shop:["300 g kycklingfilé","250 g wokgrönsaker","120 g ris","20 ml soja","1 bit ingefära"]}
+];
+const DAYS=["Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag","Söndag"];
+let plan=JSON.parse(localStorage.getItem("ml_plan")||"null")||[...DATA,DATA[0]];
+let checked=JSON.parse(localStorage.getItem("ml_checked")||"[]");
+
+function save(){localStorage.setItem("ml_plan",JSON.stringify(plan));localStorage.setItem("ml_checked",JSON.stringify(checked))}
+function showTab(id, updateUrl=true){
+  const panel=document.getElementById(id);
+  if(!panel)return;
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  panel.classList.add("active");
+  if(updateUrl) history.pushState(null,"","#"+id);
+  document.getElementById("app").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function openTabFromUrl(){
+  const id=location.hash.replace("#","").trim().toLowerCase();
+  const valid=["veckoplan","inkop","recept","hemma"];
+  showTab(valid.includes(id)?id:"veckoplan",false);
+}
+window.addEventListener("hashchange",openTabFromUrl);
+window.addEventListener("popstate",openTabFromUrl);
+function renderDays(){document.getElementById("days").innerHTML=plan.map((r,i)=>`<div class="day"><small>${DAYS[i]}</small><b>${r.e} ${r.name}</b><span>${r.k} kcal · ${r.p} g protein<br>⏱ ${r.t} min</span></div>`).join("")}
+function renderShop(){const items=[...new Set(plan.flatMap(r=>r.shop))];document.getElementById("shopping").innerHTML=items.map(x=>`<div class="shoprow ${checked.includes(x)?"done":""}"><input type="checkbox" ${checked.includes(x)?"checked":""} onchange="toggleItem(this,'${encodeURIComponent(x)}')"><label>${x}</label></div>`).join("");document.getElementById("total").textContent=`${items.length} varor · ${items.filter(x=>checked.includes(x)).length} avbockade`;}
+function toggleItem(el,enc){const x=decodeURIComponent(enc);if(el.checked){if(!checked.includes(x))checked.push(x)}else checked=checked.filter(y=>y!==x);save();renderShop()}
+function uncheckAll(){checked=[];save();renderShop()}
+function newPlan(){plan=[...DATA].sort(()=>Math.random()-.5);save();renderDays();renderShop();showTab("veckoplan")}
+function renderRecipes(){document.getElementById("recipes").innerHTML=DATA.map(r=>`<div class="card"><div style="font-size:34px">${r.e}</div><h3>${r.name}</h3><p>${r.k} kcal · ${r.p} g protein · ⏱ ${r.t} min</p><button class="btn light" onclick="alert('${r.name}\\n\\nIngredienser:\\n${r.shop.join("\\n")}')">Visa ingredienser</button></div>`).join("")}
+function findRecipes(){const q=document.getElementById("pantry").value.toLowerCase();const words=q.split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean);const found=DATA.map(r=>({r,s:r.keys.filter(k=>words.some(w=>w.includes(k)||k.includes(w))).length})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);document.getElementById("results").innerHTML=found.length?found.map(x=>`<div class="match"><b>${x.r.e} ${x.r.name}</b><p>${x.r.k} kcal · ${x.r.p} g protein · ${x.r.t} min</p><span class="muted">Matchar: ${x.r.keys.filter(k=>words.some(w=>w.includes(k)||k.includes(w))).join(", ")}</span></div>`).join(""):`<div class="match"><b>Inget recept matchade.</b><p class="muted">Testa exempelvis kyckling, ris, broccoli eller lax.</p></div>`}
+renderDays();renderShop();renderRecipes();openTabFromUrl();
+</script>
+</body></html>
